@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rag-ai"
+version = "0.1.0"
+description = "A learning-oriented Python RAG framework inspired by RAG From Scratch."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+authors = [{ name = "R.A.G AI contributors" }]
+dependencies = []
+
+[project.optional-dependencies]
+chroma = ["chromadb>=0.5"]
+openai = ["openai>=1.0"]
+pdf = ["pypdf>=4.0"]
+local = ["sentence-transformers>=2.7"]
+dev = ["pytest>=8.0"]
+all = [
+  "chromadb>=0.5",
+  "openai>=1.0",
+  "pypdf>=4.0",
+  "sentence-transformers>=2.7",
+  "pytest>=8.0",
+]
+
+[project.scripts]
+rag-ai = "rag_ai.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
