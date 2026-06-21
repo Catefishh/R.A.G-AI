@@ -9,6 +9,7 @@ from rag_ai import (
     VectorRetriever,
     load_path,
 )
+from rag_ai.loaders import load_bytes
 from rag_ai.llms import ExtractiveLLM
 from rag_ai.prompts import INSUFFICIENT_CONTEXT
 from rag_ai.rerankers import KeywordOverlapReranker
@@ -33,6 +34,16 @@ def test_directory_loader_skips_unsupported_files(tmp_path: Path) -> None:
     documents = load_path(tmp_path)
 
     assert [document.text for document in documents] == ["alpha"]
+
+
+def test_byte_loader_rejects_unsupported_and_empty_files() -> None:
+    assert load_bytes("empty.txt", b"  \n") == []
+    try:
+        load_bytes("data.csv", b"a,b")
+    except ValueError as exc:
+        assert "Unsupported" in str(exc)
+    else:
+        raise AssertionError("Expected unsupported upload to fail")
 
 
 def test_splitter_overlaps_and_propagates_metadata() -> None:
@@ -82,6 +93,7 @@ def test_pipeline_returns_cited_answer() -> None:
     assert "retrieval" in answer.answer.lower()
     assert "[1]" in answer.answer
     assert answer.sources
+    assert answer.metadata["generation_metrics"].elapsed_ms >= 0
 
 
 def test_pipeline_handles_no_context() -> None:

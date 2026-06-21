@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Protocol
 
-from rag_ai.models import Chunk, Document, RAGAnswer, RetrievedChunk
+from rag_ai.models import Chunk, Document, GenerationResult, RAGAnswer, RetrievedChunk
 
 
 class DocumentLoader(Protocol):
@@ -56,6 +56,16 @@ class Reranker(Protocol):
 
 class LLM(Protocol):
     def generate(self, prompt: str, *, context: list[RetrievedChunk] | None = None) -> str:
+        ...
+
+
+class DetailedLLM(Protocol):
+    def generate_detailed(
+        self,
+        prompt: str,
+        *,
+        context: list[RetrievedChunk] | None = None,
+    ) -> GenerationResult:
         ...
 
 

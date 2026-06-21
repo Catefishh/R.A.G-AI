@@ -6,6 +6,14 @@ from rag_ai.models import RetrievedChunk
 INSUFFICIENT_CONTEXT = "I do not have enough context to answer that question."
 
 
+def build_baseline_prompt(question: str) -> str:
+    return (
+        "Answer the question as accurately and concisely as you can using your existing knowledge. "
+        "If you are uncertain, say so. Do not invent sources or citations.\n\n"
+        f"Question: {question}\nAnswer:"
+    )
+
+
 def build_grounded_prompt(question: str, context: list[RetrievedChunk]) -> str:
     context_block = "\n\n".join(
         f"[{index}] {item.chunk.text}\nSource: {item.chunk.metadata.get('source', item.chunk.id)}"

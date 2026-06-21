@@ -39,3 +39,31 @@ class RAGAnswer:
     answer: str
     sources: list[RetrievedChunk]
     metadata: Metadata = field(default_factory=dict)
+
+
+@dataclass(slots=True)
+class GenerationMetrics:
+    elapsed_ms: float
+    input_tokens: int | None = None
+    output_tokens: int | None = None
+
+
+@dataclass(slots=True)
+class GenerationResult:
+    text: str
+    metrics: GenerationMetrics
+
+
+@dataclass(slots=True)
+class ComparisonAnswer:
+    answer: str
+    metrics: GenerationMetrics
+    sources: list[RetrievedChunk] = field(default_factory=list)
+    metadata: Metadata = field(default_factory=dict)
+
+
+@dataclass(slots=True)
+class ComparisonResult:
+    question: str
+    without_rag: ComparisonAnswer
+    with_rag: ComparisonAnswer

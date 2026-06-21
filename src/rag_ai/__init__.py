@@ -1,6 +1,21 @@
-from rag_ai.embeddings import HashEmbeddingModel, OpenAIEmbeddingModel, SentenceTransformersEmbeddingModel
-from rag_ai.loaders import DirectoryLoader, PdfLoader, TextLoader, load_path
-from rag_ai.models import Chunk, Document, RAGAnswer, RetrievedChunk
+from rag_ai.comparison import ComparisonRunner
+from rag_ai.embeddings import (
+    HashEmbeddingModel,
+    OpenAIEmbeddingModel,
+    SentenceTransformersEmbeddingModel,
+)
+from rag_ai.llms import TransformersLLM
+from rag_ai.loaders import DirectoryLoader, PdfLoader, TextLoader, load_bytes, load_path
+from rag_ai.models import (
+    Chunk,
+    ComparisonAnswer,
+    ComparisonResult,
+    Document,
+    GenerationMetrics,
+    GenerationResult,
+    RAGAnswer,
+    RetrievedChunk,
+)
 from rag_ai.pipeline import RAGPipeline
 from rag_ai.query_transformers import (
     DecompositionTransformer,
@@ -18,6 +33,9 @@ from rag_ai.stores import ChromaVectorStore, InMemoryVectorStore
 __all__ = [
     "ChromaVectorStore",
     "Chunk",
+    "ComparisonAnswer",
+    "ComparisonResult",
+    "ComparisonRunner",
     "DecompositionTransformer",
     "DirectoryLoader",
     "Document",
@@ -28,6 +46,8 @@ __all__ = [
     "KeywordRouter",
     "MultiQueryTransformer",
     "NoOpReranker",
+    "GenerationMetrics",
+    "GenerationResult",
     "OpenAIEmbeddingModel",
     "PdfLoader",
     "RAGAnswer",
@@ -41,6 +61,8 @@ __all__ = [
     "StaticQueryTransformer",
     "StepBackTransformer",
     "TextLoader",
+    "TransformersLLM",
     "VectorRetriever",
+    "load_bytes",
     "load_path",
 ]

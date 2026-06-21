@@ -6,7 +6,6 @@ import re
 from collections import Counter
 from os import getenv
 
-
 TOKEN_RE = re.compile(r"[A-Za-z0-9_]+")
 
 
@@ -36,14 +35,19 @@ class HashEmbeddingModel:
 
 
 class SentenceTransformersEmbeddingModel:
-    def __init__(self, model_name: str = "sentence-transformers/all-MiniLM-L6-v2") -> None:
+    def __init__(
+        self,
+        model_name: str = "sentence-transformers/all-MiniLM-L6-v2",
+        *,
+        device: str | None = None,
+    ) -> None:
         try:
             from sentence_transformers import SentenceTransformer
         except ImportError as exc:
             raise RuntimeError(
                 "SentenceTransformers requires the optional 'local' extra: pip install -e .[local]"
             ) from exc
-        self.model = SentenceTransformer(model_name)
+        self.model = SentenceTransformer(model_name, device=device)
 
     def embed_query(self, text: str) -> list[float]:
         return self.embed_documents([text])[0]
