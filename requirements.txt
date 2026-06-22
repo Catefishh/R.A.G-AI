@@ -1,0 +1,18 @@
+# Core RAG framework dependencies (fully local, no external API keys required).
+#
+# Pinned to compatible minimum versions; install the latest patch within each.
+sentence-transformers>=2.7.0
+transformers>=4.44.0
+torch>=2.2.0
+accelerate>=0.30.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+
+# Document loading
+pypdf>=4.2.0
+
+# Web demo UI
+streamlit>=1.36.0
+
+# Testing
+pytest>=8.0.0
